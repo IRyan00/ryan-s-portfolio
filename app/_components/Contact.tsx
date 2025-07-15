@@ -60,7 +60,7 @@ export const ContactForm = () => {
             htmlFor="name"
             className="text-sm font-medium flex items-center gap-2"
           >
-            <User size={18} />
+            <User size={18} aria-label="User icon" />
             Name
           </label>
           <Input
@@ -76,7 +76,7 @@ export const ContactForm = () => {
             htmlFor="email"
             className="text-sm font-medium flex items-center gap-2"
           >
-            <AtSign size={18} />
+            <AtSign size={18} aria-label="AtSign icon" />
             Email
           </label>
           <Input
@@ -92,7 +92,7 @@ export const ContactForm = () => {
             htmlFor="message"
             className="text-sm font-medium flex items-center gap-2"
           >
-            <MessageSquare size={18} />
+            <MessageSquare size={18} aria-label="Message icon" />
             Message
           </label>
           <Textarea
@@ -107,16 +107,18 @@ export const ContactForm = () => {
           type="submit"
           disabled={isSending || formState.isSubmitting}
           className="w-full py-3 font-semibold"
+          aria-label="Send form"
         >
           {isSending ? (
             <LoaderCircleIcon
               className="-ms-1 animate-spin"
               size={16}
               aria-hidden="true"
+              aria-label="Loading icon"
             />
           ) : (
             <>
-              <Send className="mr-1 h-4 w-4" />
+              <Send className="mr-1 h-4 w-4" aria-label="Send icon" />
               Submit
             </>
           )}
