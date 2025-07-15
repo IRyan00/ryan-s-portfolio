@@ -1,7 +1,7 @@
 "use client";
 
 import { Section } from "./Section";
-import avatar from "../../public/media/avatar.avif";
+import avatar from "../../public/media/avatar.webp";
 import Image from "next/image";
 const cv = "/files/CV_Ryan_Eymas.pdf";
 import { Button } from "@/components/ui/button";
@@ -49,6 +49,8 @@ export const Hero = () => {
           width={500}
           height={500}
           className="rounded-2xl"
+          priority={true}
+          loading="eager"
         />
       </div>
     </Section>

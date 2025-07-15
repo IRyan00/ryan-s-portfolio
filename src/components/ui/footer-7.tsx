@@ -82,7 +82,7 @@ const defaultSections = [
 export const Footer7 = ({
   logo = {
     url: "https://github.com/IRyan00",
-    src: "/media/logo2.avif",
+    src: "/media/logo2.webp",
     alt: "Ryan's logo",
     title: "ryan-s-portfolio.vercel.app",
   },
