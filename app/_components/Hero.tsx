@@ -1,7 +1,7 @@
 "use client";
 
 import { Section } from "./Section";
-import avatar from "../../public/media/avatar.webp";
+import avatar from "../../public/media/avatar.avif";
 import Image from "next/image";
 const cv = "/files/CV_Ryan_Eymas.pdf";
 import { Button } from "@/components/ui/button";

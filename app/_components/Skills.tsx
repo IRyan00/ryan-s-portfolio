@@ -17,7 +17,7 @@ export const Skills = () => {
             className="flex flex-col items-center justify-center gap-2 rounded-lg border p-4"
           >
             <Icon className="h-8 w-8" />
-            <span className="text-sm text-gray-200">{name}</span>
+            <span className="text-sm">{name}</span>
           </div>
         ))}
       </div>

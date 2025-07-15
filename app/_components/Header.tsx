@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Section } from "./Section";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import logo from "../../public/media/logo2.webp";
+import logo from "../../public/media/logo2.avif";
 import { ModeToggle } from "@/components/theme-toggle";
 import { Menu, X, Home, User, UserCog, Construction } from "lucide-react";
 import clsx from "clsx";

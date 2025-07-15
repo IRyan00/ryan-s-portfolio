@@ -2,7 +2,7 @@ import { Section } from "./Section";
 
 export const About = () => {
   return (
-    <Section className="min-w-2xs max-w-6xl mt-30 bg-[var(--secondary)] rounded-2xl p-10">
+    <Section className="min-w-2xs max-w-6xl mt-30 bg-[var(--secondary)] rounded-2xl p-7">
       <h2
         id="about"
         className="h2 text-3xl font-bold mb-8 text-[var(--thridary-foreground)]"

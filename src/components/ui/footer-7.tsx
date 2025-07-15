@@ -82,13 +82,13 @@ const defaultSections = [
 export const Footer7 = ({
   logo = {
     url: "https://github.com/IRyan00",
-    src: "/media/logo2.webp",
+    src: "/media/logo2.avif",
     alt: "Ryan's logo",
-    title: "ryaneymas.dev",
+    title: "ryan-s-portfolio.vercel.app",
   },
   sections = defaultSections,
   description = "A portfolio website from a junior full-stack web developer.",
-  copyright = "© 2025 ryaneymas.dev. All rights reserved.",
+  copyright = "© 2025 ryan-s-portfolio.vercel.app. All rights reserved.",
 }: Footer7Props) => {
   return (
     <section>
@@ -96,7 +96,7 @@ export const Footer7 = ({
         <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
           <div className="flex w-full flex-col items-start gap-6 justify-center">
             <div className="flex items-center">
-              <a href={logo.url}>
+              <a href={logo.url} target="_blank" rel="noopener noreferrer">
                 <img
                   src={logo.src}
                   alt={logo.alt}
