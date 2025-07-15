@@ -1,8 +1,18 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import React from "react";
 import { useForm } from "react-hook-form";
-import { Send, User, AtSign, MessageSquare } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import {
+  Send,
+  User,
+  AtSign,
+  MessageSquare,
+  LoaderCircleIcon,
+} from "lucide-react";
 
 type FormData = {
   name: string;
@@ -10,10 +20,34 @@ type FormData = {
   message: string;
 };
 
-export const ContactForm: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+export const ContactForm = () => {
+  const { register, handleSubmit, reset, formState } = useForm<FormData>();
+  const [isSending, setIsSending] = useState(false);
 
-  const onSubmit = () => {};
+  const onSubmit = async (data: FormData) => {
+    setIsSending(true);
+
+    try {
+      await emailjs.send(
+        "service_rykqsvp",
+        "template_8qwy3tm",
+        {
+          from_name: data.name,
+          reply_to: data.email,
+          message: data.message,
+        },
+        "PKHdla2y1SRasrdXN"
+      );
+
+      toast.success("Message sent successfully! ✅");
+      reset();
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error("Failed to send message. ❌");
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <div className="w-full max-w-lg mx-auto">
@@ -21,66 +55,71 @@ export const ContactForm: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 rounded-lg"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <label
             htmlFor="name"
-            className="mb-2 text-sm font-medium flex items-center gap-2"
-            aria-label="Name"
+            className="text-sm font-medium flex items-center gap-2"
           >
-            <User size={20} aria-label="User icon" />
+            <User size={18} />
             Name
           </label>
-          <input
-            type="text"
+          <Input
             id="name"
-            {...register("name")}
-            className="w-full p-3 rounded-md border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--thridary-foreground)]"
+            type="text"
             placeholder="Your name"
-            aria-label="Name"
+            {...register("name", { required: true })}
           />
         </div>
-        <div className="flex flex-col">
+
+        <div className="flex flex-col gap-2">
           <label
             htmlFor="email"
-            className="mb-2 text-sm font-medium flex items-center gap-2"
-            aria-label="email"
+            className="text-sm font-medium flex items-center gap-2"
           >
-            <AtSign size={20} aria-label="At icon" />
+            <AtSign size={18} />
             Email
           </label>
-          <input
-            type="email"
+          <Input
             id="email"
-            {...register("email")}
-            className="w-full p-3 rounded-md border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--thridary-foreground)]"
-            placeholder="you@email.com"
-            aria-label="email"
+            type="email"
+            placeholder="you@example.com"
+            {...register("email", { required: true })}
           />
         </div>
-        <div className="flex flex-col">
+
+        <div className="flex flex-col gap-2">
           <label
             htmlFor="message"
-            className="mb-2 text-sm font-medium flex items-center gap-2"
-            aria-label="Message"
+            className="text-sm font-medium flex items-center gap-2"
           >
-            <MessageSquare size={20} aria-label="Message icon" />
+            <MessageSquare size={18} />
             Message
           </label>
-          <textarea
+          <Textarea
             id="message"
-            {...register("message")}
-            className="w-full p-3 rounded-md  border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--thridary-foreground)] min-h-[120px]"
             placeholder="Type your message..."
-            aria-label="Message"
-          ></textarea>
+            rows={5}
+            {...register("message", { required: true })}
+          />
         </div>
+
         <Button
           type="submit"
-          aria-label="Submit contact form"
-          className="w-full py-3 font-semibold rounded-md transition-colors duration-200"
+          disabled={isSending || formState.isSubmitting}
+          className="w-full py-3 font-semibold"
         >
-          <Send aria-label="Submit icon" />
-          Submit
+          {isSending ? (
+            <LoaderCircleIcon
+              className="-ms-1 animate-spin"
+              size={16}
+              aria-hidden="true"
+            />
+          ) : (
+            <>
+              <Send className="mr-1 h-4 w-4" />
+              Submit
+            </>
+          )}
         </Button>
       </form>
     </div>
