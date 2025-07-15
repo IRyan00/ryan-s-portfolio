@@ -42,6 +42,7 @@ export const ContactForm = () => {
       toast.success("Message sent successfully! ✅");
       reset();
     } catch (error) {
+      console.error("EmailJS error:", error);
       toast.error("Failed to send message. ❌");
     } finally {
       setIsSending(false);
