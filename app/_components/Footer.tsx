@@ -13,8 +13,9 @@ export const Footer = () => {
               Contact me for collaboration
             </h2>
             <p className="mb-8">
-              Do you have a project in mind? I have the solution so don't wait
-              and contact me today! We're about to do something amazing!
+              Do you have a project in mind? I have the solution so don&apos;t
+              wait and contact me today! We&apos;re about to do something
+              amazing!
             </p>
             <div className="flex space-x-4">
               <a

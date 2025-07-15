@@ -13,7 +13,7 @@ type FormData = {
 export const ContactForm: React.FC = () => {
   const { register, handleSubmit } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {};
+  const onSubmit = (_data: FormData) => {};
 
   return (
     <div className="w-full max-w-lg mx-auto">

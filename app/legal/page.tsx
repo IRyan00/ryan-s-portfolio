@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Home } from "lucide-react";
+import Link from "next/link";
 
 const LegalPage: React.FC = () => {
   return (
@@ -11,12 +12,12 @@ const LegalPage: React.FC = () => {
         <CardContent className="px-6">
           <div className="flex items-center justify-between mb-4 text-[var(--thridary-foreground)]">
             <h1 className="text-3xl font-bold">Terms and Conditions</h1>
-            <a
+            <Link
               href="/"
               className="flex items-center gap-2 text-[var(--thridary-foreground)] hover:underline"
             >
               <Home size={32} />
-            </a>
+            </Link>
           </div>
           <Separator className="mb-4" />
           <ScrollArea className="h-[70vh] pr-4">
