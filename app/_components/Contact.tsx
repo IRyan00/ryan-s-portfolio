@@ -29,14 +29,14 @@ export const ContactForm = () => {
 
     try {
       await emailjs.send(
-        "service_rykqsvp",
-        "template_8qwy3tm",
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "",
         {
           from_name: data.name,
           reply_to: data.email,
           message: data.message,
         },
-        "PKHdla2y1SRasrdXN"
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
 
       toast.success("Message sent successfully! ✅");
