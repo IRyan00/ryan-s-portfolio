@@ -25,12 +25,15 @@ export const Hero = () => {
           Junior Full Stack Developer <Layers aria-label="Layers icon" />
         </h2>
         <div className="flex gap-4">
-          <Button className="font-bold" aria-label="Download CV">
-            <a href={cv} download>
-              Download CV
-            </a>
+          <Button
+            className="font-bold"
+            aria-label="Download CV"
+            onClick={() => window.open(cv, "_blank")}
+          >
+            Download CV
             <Download aria-label="Download icon" />
           </Button>
+
           <Button
             variant="outline"
             className="font-bold"

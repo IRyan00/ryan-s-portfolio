@@ -77,7 +77,7 @@ export const ContactForm: React.FC = () => {
         <Button
           type="submit"
           aria-label="Submit contact form"
-          className="w-full py-3 bg-[var(--thridary-foreground)] font-semibold rounded-md transition-colors duration-200"
+          className="w-full py-3 font-semibold rounded-md transition-colors duration-200"
         >
           <Send aria-label="Submit icon" />
           Submit
