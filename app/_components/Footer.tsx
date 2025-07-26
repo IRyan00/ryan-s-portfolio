@@ -9,9 +9,12 @@ export const Footer = () => {
       <Section className="w-full max-w-6xl mx-auto px-4">
         <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-stretch justify-center">
           <div className="w-full md:w-1/2 flex flex-col justify-center md:mb-0">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[var(--thridary-foreground)]">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[var(--thridary-foreground)]">
               Contact me for collaboration
             </h2>
+
+            <div className="w-16 h-1 bg-[var(--thridary-foreground)] mb-6 rounded" />
+
             <p className="mb-8">
               Do you have a project in mind? I have the solution so don&apos;t
               wait and contact me today! We&apos;re about to do something

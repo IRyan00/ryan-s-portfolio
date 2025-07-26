@@ -101,7 +101,7 @@ export const Footer7 = ({
                   src={logo.src}
                   alt={logo.alt}
                   title={logo.title}
-                  className="h-8"
+                  className="h-8 invert dark:invert-0"
                 />
               </a>
             </div>

@@ -8,41 +8,46 @@ import { ModeToggle } from "@/components/theme-toggle";
 import { Menu, X, Home, User, UserCog, Construction } from "lucide-react";
 import clsx from "clsx";
 
+const sections = [
+  { id: "top", icon: <Home className="inline mr-1" />, label: "Home" },
+  { id: "about", icon: <User className="inline mr-1" />, label: "About" },
+  { id: "skills", icon: <UserCog className="inline mr-1" />, label: "Skills" },
+  { id: "work", icon: <Construction className="inline mr-1" />, label: "Work" },
+];
+
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("top");
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const scrollToAbout = () => {
-    const contactSection = document.getElementById("about");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id: string) => {
+    if (id === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const scrollToSkills = () => {
-    const contactSection = document.getElementById("skills");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  useEffect(() => {
+    const sectionIds = ["top", "about", "skills", "work", "contact"];
+    const options = { root: null, rootMargin: "0px", threshold: 0.6 };
 
-  const scrollToWork = () => {
-    const contactSection = document.getElementById("work");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, options);
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -67,76 +72,60 @@ export const Header = () => {
       <Section className="flex items-baseline">
         <nav className="container mx-auto grid grid-cols-3 items-center py-4">
           <div className="text-xl font-bold">
-            <button onClick={scrollToTop} aria-label="Ryan's logo, it's a `R`">
+            <button
+              onClick={() => scrollTo("top")}
+              aria-label="Ryan's logo, it's a `R`"
+            >
               <Image
                 src={logo}
                 alt="Ryan's logo, it's a `R`"
                 width={30}
                 height={30}
+                className="invert dark:invert-0"
               />
             </button>
           </div>
+
           <ul className="hidden lg:flex justify-center space-x-6 text-sm font-medium">
-            <li>
-              <button
-                className="hover:text-[var(--thridary-foreground)]"
-                onClick={scrollToTop}
-                aria-label="Home button"
-              >
-                <Home className="inline mr-1" aria-label="Home icon" />
-              </button>
-            </li>
-            <li>
-              <button
-                className="hover:text-[var(--thridary-foreground)]"
-                onClick={scrollToAbout}
-                aria-label="About section button"
-              >
-                <User className="inline mr-1" aria-label="User icon" />
-              </button>
-            </li>
-            <li>
-              <button
-                className="hover:text-[var(--thridary-foreground)]"
-                onClick={scrollToSkills}
-                aria-label="Skills section button"
-              >
-                <UserCog className="inline mr-1" aria-label="UserCog icon" />
-              </button>
-            </li>
-            <li>
-              <button
-                className="hover:text-[var(--thridary-foreground)]"
-                onClick={scrollToWork}
-                aria-label="Work section button"
-              >
-                <Construction
-                  className="inline mr-1"
-                  aria-label="Construction icon"
-                />
-              </button>
-            </li>
+            {sections.map(({ id, icon, label }) => (
+              <li key={id}>
+                <button
+                  className={clsx(
+                    "hover:text-[var(--thridary-foreground)] transition-transform duration-200 hover:scale-125",
+                    activeSection === id &&
+                      "text-[var(--thridary-foreground)] scale-125"
+                  )}
+                  onClick={() => scrollTo(id)}
+                  aria-label={`${label} button`}
+                >
+                  {icon}
+                </button>
+              </li>
+            ))}
           </ul>
+
           <div className="hidden lg:flex justify-end items-center space-x-2">
             <Button
               className="font-bold"
               aria-label="Contact button"
-              onClick={scrollToContact}
+              onClick={() => scrollTo("contact")}
             >
               Contact Me
             </Button>
             <ModeToggle aria-label="Mode toggle" />
           </div>
+
           {!menuOpen && (
             <button
               className="hover:text-[var(--thridary-foreground)] lg:hidden text-foreground z-50 col-start-3 justify-self-end"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu on mobile"
             >
-              <Menu size={28} aria-label="Mobile menu icon" />
+              <Menu size={28} />
             </button>
           )}
         </nav>
+
         <div
           ref={menuRef}
           className={clsx(
@@ -152,48 +141,23 @@ export const Header = () => {
             onClick={() => setMenuOpen(false)}
             aria-label="Close mobile menu"
           >
-            <X size={28} aria-label="X icon" />
+            <X size={28} />
           </button>
-          <button
-            className="font-bold hover:text-[var(--thridary-foreground)]"
-            aria-label="Home, top of the page"
-            onClick={() => {
-              setMenuOpen(false);
-              scrollToTop();
-            }}
-          >
-            Home
-          </button>
-          <button
-            className="font-bold hover:text-[var(--thridary-foreground)]"
-            aria-label="About section"
-            onClick={() => {
-              setMenuOpen(false);
-              scrollToAbout();
-            }}
-          >
-            About
-          </button>
-          <button
-            className="font-bold hover:text-[var(--thridary-foreground)]"
-            aria-label="Skills section"
-            onClick={() => {
-              setMenuOpen(false);
-              scrollToSkills();
-            }}
-          >
-            Skills
-          </button>
-          <button
-            className="font-bold hover:text-[var(--thridary-foreground)]"
-            aria-label="Work section"
-            onClick={() => {
-              setMenuOpen(false);
-              scrollToWork();
-            }}
-          >
-            Work
-          </button>
+
+          {sections.map(({ id, label }) => (
+            <button
+              key={id}
+              className="font-bold hover:text-[var(--thridary-foreground)]"
+              aria-label={`${label} section`}
+              onClick={() => {
+                setMenuOpen(false);
+                scrollTo(id);
+              }}
+            >
+              {label}
+            </button>
+          ))}
+
           <div className="mt-auto flex items-center gap-2 self-end">
             <Button
               size="sm"
@@ -201,7 +165,7 @@ export const Header = () => {
               aria-label="Contact section"
               onClick={() => {
                 setMenuOpen(false);
-                scrollToContact();
+                scrollTo("contact");
               }}
             >
               Contact Me

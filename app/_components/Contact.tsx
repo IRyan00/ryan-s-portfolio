@@ -21,12 +21,18 @@ type FormData = {
 };
 
 export const ContactForm = () => {
-  const { register, handleSubmit, reset, formState } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>();
   const [isSending, setIsSending] = useState(false);
+  const [message, setMessage] = useState("");
+  const MAX_MESSAGE_LENGTH = 3000;
 
   const onSubmit = async (data: FormData) => {
     setIsSending(true);
-
     try {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "",
@@ -38,9 +44,9 @@ export const ContactForm = () => {
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
-
       toast.success("Message sent successfully! ✅");
       reset();
+      setMessage(""); // reset local message state
     } catch (error) {
       console.error("EmailJS error:", error);
       toast.error("Failed to send message. ❌");
@@ -55,6 +61,7 @@ export const ContactForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 rounded-lg"
       >
+        {/* Name */}
         <div className="flex flex-col gap-2">
           <label
             htmlFor="name"
@@ -66,11 +73,29 @@ export const ContactForm = () => {
           <Input
             id="name"
             type="text"
-            placeholder="Your name"
-            {...register("name", { required: true })}
+            placeholder="Your full name"
+            {...register("name", {
+              required: "Name is required",
+              minLength: {
+                value: 2,
+                message: "Name must be at least 2 characters",
+              },
+              maxLength: {
+                value: 100,
+                message: "Name must be less than 100 characters",
+              },
+              pattern: {
+                value: /^[A-Za-zÀ-ÿ' -]{2,100}$/,
+                message: "Please enter a valid name",
+              },
+            })}
           />
+          {errors.name && (
+            <p className="text-sm text-red-500">{errors.name.message}</p>
+          )}
         </div>
 
+        {/* Email */}
         <div className="flex flex-col gap-2">
           <label
             htmlFor="email"
@@ -83,11 +108,25 @@ export const ContactForm = () => {
             id="email"
             type="email"
             placeholder="you@example.com"
-            {...register("email", { required: true })}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[\w\.-]+@[\w\.-]+\.\w{2,}$/,
+                message: "Please enter a valid email address",
+              },
+              maxLength: {
+                value: 254,
+                message: "Email must be less than 254 characters",
+              },
+            })}
           />
+          {errors.email && (
+            <p className="text-sm text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
-        <div className="flex flex-col gap-2">
+        {/* Message */}
+        <div className="flex flex-col gap-2 relative">
           <label
             htmlFor="message"
             className="text-sm font-medium flex items-center gap-2"
@@ -99,13 +138,35 @@ export const ContactForm = () => {
             id="message"
             placeholder="Type your message..."
             rows={5}
-            {...register("message", { required: true })}
+            className="pr-16 pb-6"
+            maxLength={MAX_MESSAGE_LENGTH}
+            {...register("message", {
+              required: "Message is required",
+              minLength: {
+                value: 10,
+                message: "Message must be at least 10 characters",
+              },
+              maxLength: {
+                value: MAX_MESSAGE_LENGTH,
+                message: `Message must be less than ${MAX_MESSAGE_LENGTH} characters`,
+              },
+              validate: (value) =>
+                !/[<>]/.test(value) || "HTML tags are not allowed",
+            })}
+            onChange={(e) => setMessage(e.target.value)}
           />
+          <div className="text-xs text-muted-foreground absolute bottom-2 right-3 pointer-events-none">
+            {message.length}/{MAX_MESSAGE_LENGTH}
+          </div>
+          {errors.message && (
+            <p className="text-sm text-red-500">{errors.message.message}</p>
+          )}
         </div>
 
+        {/* Submit */}
         <Button
           type="submit"
-          disabled={isSending || formState.isSubmitting}
+          disabled={isSending || isSubmitting}
           className="w-full py-3 font-semibold"
           aria-label="Send form"
         >
@@ -118,8 +179,8 @@ export const ContactForm = () => {
             />
           ) : (
             <>
-              <Send className="mr-1 h-4 w-4" aria-label="Send icon" />
-              Submit
+              <Send className="h-4 w-4" aria-label="Send icon" />
+              Send message
             </>
           )}
         </Button>

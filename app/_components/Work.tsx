@@ -12,10 +12,13 @@ export const Work = () => {
     <Section className="w-full max-w-6xl mt-30 mx-auto px-4">
       <h2
         id="work"
-        className="text-2xl sm:text-3xl font-bold mb-8 text-[var(--thridary-foreground)]"
+        className="text-2xl sm:text-3xl font-bold mb-2 text-[var(--thridary-foreground)]"
       >
         My creations
       </h2>
+
+      <div className="w-16 h-1 bg-[var(--thridary-foreground)] mb-6 rounded" />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {projects.map((project) => (
           <Card

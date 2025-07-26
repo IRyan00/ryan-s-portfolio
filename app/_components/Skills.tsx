@@ -6,10 +6,13 @@ export const Skills = () => {
     <Section className="max-w-6xl mx-auto mt-30 px-4">
       <h2
         id="skills"
-        className="h2 text-3xl font-bold mb-8 text-[var(--thridary-foreground)]"
+        className="h2 text-3xl font-bold mb-2 text-[var(--thridary-foreground)]"
       >
         Skills
       </h2>
+
+      <div className="w-16 h-1 bg-[var(--thridary-foreground)] mb-6 rounded" />
+
       <div className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-6">
         {Object.entries(Icons).map(([name, Icon]) => (
           <div
