@@ -13,7 +13,7 @@ export const projects: Project[] = [
     title: "Web developer - Full stack",
     description:
       "Welcome to my portfolio website, showcasing the projects and skills of an aspiring full stack developer passionate about creating dynamic and responsive web applications.",
-    image: "/media/portfolioShowcase.avif",
+    image: "/media/portfolioShowcase.webp",
     tags: ["Typescript", "Next.js", "Shadcn/ui", "TailwindCSS"],
     link: "https://ryan-s-portfolio.vercel.app/",
   },
@@ -22,7 +22,7 @@ export const projects: Project[] = [
     title: "Nanny",
     description:
       "I created a professional portfolio website to showcase the experience and dedication of a nurturing nursery assistant, highlighting her commitment to early childhood education and development.",
-    image: "/media/assmatShowcase.png",
+    image: "/media/assmatShowcase.webp",
     tags: ["MERN", "Bootstrap", "CSS"],
     link: "https://nanny-jet.vercel.app/",
   },
