@@ -22,7 +22,7 @@ export const projects: Project[] = [
     title: "Nanny",
     description:
       "I created a professional portfolio website to showcase the experience and dedication of a nurturing nursery assistant, highlighting her commitment to early childhood education and development.",
-    image: "/media/assmatShowcase.avif",
+    image: "/media/assmatShowcase.png",
     tags: ["MERN", "Bootstrap", "CSS"],
     link: "https://nanny-jet.vercel.app/",
   },

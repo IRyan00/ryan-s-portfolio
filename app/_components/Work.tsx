@@ -27,7 +27,7 @@ export const Work = () => {
           >
             <div className="relative w-full h-48 sm:h-64 overflow-hidden rounded-t-xl">
               <Image
-                src={project.image}
+                src={`${project.image}`}
                 alt={project.title}
                 fill
                 className="object-cover object-top transition-transform duration-500 ease-in-out group-hover:scale-110"
