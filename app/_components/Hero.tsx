@@ -3,7 +3,7 @@
 import { Section } from "./Section";
 import avatar from "../../public/media/avatar.webp";
 import Image from "next/image";
-const cv = "/files/CV_Ryan_Eymas.pdf";
+const cv = "/files/CV_EYMAS_Ryan.pdf";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Download, Layers } from "lucide-react";
 
